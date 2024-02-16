@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using HW4_Task1;
 
 namespace HW4_Regex
 {
@@ -20,11 +15,62 @@ namespace HW4_Regex
             ///////
 
             string userInput = string.Empty;
-            const string Exit = "exit";
 
-            // 1. о строка введена латиницею і не містить окремих букв кирилиці або цифр;
-            const string Mask1 = @"^[a-zA-Z]+$";
-            Regex regex = new Regex(Mask1);
+            UI.PrintRequestTaskNumber();
+
+            ConsoleKey inputedKey = Console.ReadKey(true).Key;
+            switch (inputedKey)
+            {
+                case ConsoleKey.NumPad1:
+                    ExecFirstTask();
+                    break;
+                case ConsoleKey.D1:
+                    ExecFirstTask();
+                    break;
+                case ConsoleKey.NumPad2:
+                    ExecSecondTask();
+                    break;
+                case ConsoleKey.D2:
+                    ExecSecondTask();
+                    break;
+                case ConsoleKey.NumPad3:
+                    ExecThirdTask();
+                    break;
+                case ConsoleKey.D3:
+                    ExecThirdTask();
+                    break;
+                case ConsoleKey.Escape:
+                    break;
+                default:
+                    UI.PrintErrorChoosingOperation();
+                    break;
+            }
+
+            static void ExecFirstTask()
+            {
+                const string Mask1 = @"^[a-zA-Z]+$";
+                ChekIfMatch(new Regex(Mask1));
+            }
+
+            static void ExecSecondTask()
+            {
+                // Строка введена латиницею і містить окремі літери кирилиці, не містить цифри
+                const string Mask2 = @"^[abcqwertyhu]+$";
+                ChekIfMatch(new Regex(Mask2));
+            }
+
+            static void ExecThirdTask()
+            {
+                // Строка введена латиницею і містить цифри, не містить кирилицю.
+                const string Mask3 = @"^[a-zA-Z0-9]+$";
+                ChekIfMatch(new Regex(Mask3));
+            }
+        }
+
+        private static string ChekIfMatch(Regex regex)
+        {
+            const string Exit = "exit";
+            string userInput;
             do
             {
                 UI.PrintRequest();
@@ -40,6 +86,7 @@ namespace HW4_Regex
                 }
             }
             while (userInput != Exit);
+            return userInput;
         }
     }
 }
